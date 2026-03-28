@@ -1,6 +1,8 @@
 from fastapi import FastAPI, HTTPException
 from app.repo_service import clone_repo
 from app.file_service import scan_code_files, load_file_contents, chunk_documents
+from app.embedding_service import get_embeddings
+from app.vector_store import create_vector_store
 app = FastAPI()
 
 
@@ -21,6 +23,8 @@ def load_repo(repo_url:str):
         files = scan_code_files(repo_path)
         documents = load_file_contents(files)
         chunks = chunk_documents(documents)
+        embeddings = get_embeddings()
+        vector_store = create_vector_store(chunks, embeddings)
 
         return{
             "status": "success",
@@ -29,7 +33,8 @@ def load_repo(repo_url:str):
             "total_files": len(files),
             "files": files[:20],
             "documents_loaded": len(documents),
-            "total_chunks": len(chunks)
+            "total_chunks": len(chunks),
+            "vector_db": "created successfully"
 
         }
     
