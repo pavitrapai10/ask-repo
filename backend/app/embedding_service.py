@@ -1,5 +1,7 @@
-from langchain_openai import OpenAIEmbeddings
+from langchain_community.embeddings import HuggingFaceEmbeddings
 
 
 def get_embeddings():
-    return OpenAIEmbeddings()
+    return HuggingFaceEmbeddings(
+        model_name="all-MiniLM-L6-v2"
+    )

@@ -5,7 +5,7 @@ def create_vector_store(chunks, embeddings):
     metadatas = [{"path": chunk["path"]} for chunk in chunks]
     db = Chroma.from_texts(
         texts = texts, 
-        embeddings = embeddings, 
+        embedding = embeddings, 
         metadatas = metadatas, 
         persist_directory = "vector_db"
     )
